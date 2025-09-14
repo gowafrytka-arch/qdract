@@ -7,82 +7,171 @@
     body {
       margin: 0;
       height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      overflow: hidden;
+      color: #fff;
+      overflow-x: hidden;
+      padding: 20px;
     }
 
     h1 {
-      font-size: 4em;
+      font-size: 3.5em;
       color: #00ffd5;
-      text-shadow: 
-        0 0 10px #00ffd5,
-        0 0 20px #00ffd5,
-        0 0 40px #00ffd5,
-        0 0 80px #00ffd5;
-      letter-spacing: 2px;
-      animation: glow 2.5s ease-in-out infinite alternate,
-                 float 5s ease-in-out infinite;
       text-align: center;
+      text-shadow: 0 0 15px #00ffd5, 0 0 30px #00f5ff, 0 0 60px #00ffd5;
+      animation: glow 2s ease-in-out infinite alternate;
     }
 
     @keyframes glow {
-      from {
-        text-shadow: 
-          0 0 5px #00ffd5,
-          0 0 10px #00ffd5,
-          0 0 20px #00ffd5,
-          0 0 40px #00ffd5;
-      }
-      to {
-        text-shadow: 
-          0 0 20px #00ffd5,
-          0 0 40px #00ffd5,
-          0 0 60px #00ffd5,
-          0 0 100px #00ffd5;
-      }
+      from { text-shadow: 0 0 10px #00ffd5, 0 0 20px #00ffd5, 0 0 40px #00ffd5; }
+      to   { text-shadow: 0 0 20px #00ffd5, 0 0 40px #00ffd5, 0 0 80px #00ffd5; }
+    }
+
+    .section {
+      max-width: 800px;
+      margin: 30px auto;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,255,213,0.4);
+      animation: float 6s ease-in-out infinite;
     }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
-    /* Drobne animowane kuleczki w tle */
-    .bubble {
-      position: absolute;
-      bottom: -150px;
-      background: rgba(0,255,213,0.4);
-      border-radius: 50%;
-      animation: rise 20s infinite ease-in;
+    h2 {
+      color: #00ffd5;
+      margin-bottom: 15px;
+      text-shadow: 0 0 8px #00ffd5;
     }
 
-    @keyframes rise {
-      0% { transform: translateY(0) scale(0.5); opacity: 0.4; }
-      50% { opacity: 0.8; }
-      100% { transform: translateY(-120vh) scale(1.3); opacity: 0; }
+    ul {
+      line-height: 1.8em;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #00ffd5;
+      text-shadow: 0 0 5px #00ffd5;
+    }
+
+    input[type=text],
+    input[type=email],
+    textarea,
+    select {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      background: #1e2e38;
+      color: #fff;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      box-shadow: 0 0 10px #00ffd5;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    button {
+      padding: 12px;
+      background: #00ffd5;
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #00c4a7;
+      box-shadow: 0 0 15px #00ffd5;
+    }
+
+    .info {
+      font-size: 0.9em;
+      margin-top: 15px;
+      padding: 10px;
+      background: rgba(255,255,255,0.05);
+      border-left: 3px solid #00ffd5;
     }
   </style>
 </head>
 <body>
-  <h1>QDCRAFT<br>Rekrutacja do administracji</h1>
+  <h1>QDCRAFT <br> Rekrutacja do administracji</h1>
 
-  <!-- Kilka bąbelków aby było ładniej -->
-  <script>
-    const body = document.body;
-    for(let i=0; i<20; i++){
-      let b = document.createElement('div');
-      b.classList.add('bubble');
-      let size = Math.random()*40+10;
-      b.style.width = size+'px';
-      b.style.height = size+'px';
-      b.style.left = Math.random()*100+'%';
-      b.style.animationDuration = (10+Math.random()*15)+'s';
-      body.appendChild(b);
-    }
-  </script>
+  <div class="section">
+    <h2>Wymagania</h2>
+    <ul>
+      <li>1. Mieć przynajmniej 13 lat (są wyjątki)</li>
+      <li>2. Używać poprawnie ortografii</li>
+      <li>3. Posiadać sprawny mikrofon</li>
+      <li>4. Umiejętność wykrycia każdego cheata</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Formularz rekrutacyjny</h2>
+    <!-- Formularz przez Formspree -->
+    <form action="https://formspree.io/f/yourFormID" method="POST">
+      <label>Imię i nazwisko:
+        <input type="text" name="fullname" required>
+      </label>
+
+      <label>Nick z Minecrafta oraz Discorda:
+        <input type="text" name="nicknames" placeholder="Mc: xxx | Dc: yyy" required>
+      </label>
+
+      <label>Ile masz lat?</label>
+      <select name="wiek" required>
+        <option value="mniej_13">mniej niż 13 lat</option>
+        <option value="13">13 lat</option>
+        <option value="14_16">14-16 lat</option>
+        <option value="17_plus">Powyżej 17 lat</option>
+      </select>
+
+      <label>Opisz siebie (przynajmniej 3 zdania):
+        <textarea name="opis" required></textarea>
+      </label>
+
+      <label>Czy posiadasz Minecraft Premium?</label>
+      <select name="minecraft_premium" required>
+        <option value="tak">Tak</option>
+        <option value="nie">Nie</option>
+      </select>
+
+      <label>Przekonaj nas, dlaczego akurat Ciebie mamy przyjąć do naszej administracji:
+        <textarea name="dlaczego_ty" required></textarea>
+      </label>
+
+      <label>Email kontaktowy:
+        <input type="email" name="email" required>
+      </label>
+
+      <button type="submit">Wyślij zgłoszenie</button>
+    </form>
+
+    <div class="info">
+      <strong>Informacje na temat rekrutacji</strong><br>
+      Osoby prowadzące rekrutację: <b>Darkmoon™</b><br>
+      W ciągu 3 dni administracja sprawdzi Twój formularz oraz da znać na Discordzie, czy się dostałeś/aś.
+    </div>
+  </div>
 </body>
 </html>
