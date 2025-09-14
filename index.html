@@ -1,175 +1,451 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <title>QDCRAFT Rekrutacja</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QDCRAFT — Rekrutacja do Administracji</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --primary: #ff7e5f;
+      --secondary: #feb47b;
+      --accent: #ffdd57;
+      --dark: #1a1a2e;
+      --mid: #16213e;
+      --light: #e0e0e0;
+    }
+
+    * {
       margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--dark), var(--mid), #0f3460);
       color: #fff;
+      min-height: 100vh;
       overflow-x: hidden;
-      padding: 20px;
+      position: relative;
     }
 
-    h1 {
-      font-size: 3.5em;
-      color: #00ffd5;
-      text-align: center;
-      text-shadow: 0 0 15px #00ffd5, 0 0 30px #00f5ff, 0 0 60px #00ffd5;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #00ffd5, 0 0 20px #00ffd5, 0 0 40px #00ffd5; }
-      to   { text-shadow: 0 0 20px #00ffd5, 0 0 40px #00ffd5, 0 0 80px #00ffd5; }
-    }
-
-    .section {
-      max-width: 800px;
-      margin: 30px auto;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0,255,213,0.4);
-      animation: float 6s ease-in-out infinite;
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 126, 95, 0.1), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(254, 180, 123, 0.1), transparent 40%);
+      z-index: -1;
+      pointer-events: none;
+      animation: float 20s ease-in-out infinite;
     }
 
     @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(15px, -15px); }
+      50% { transform: translate(0, 15px); }
+      75% { transform: translate(-15px, 0); }
     }
 
-    h2 {
-      color: #00ffd5;
-      margin-bottom: 15px;
-      text-shadow: 0 0 8px #00ffd5;
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
     }
 
-    ul {
-      line-height: 1.8em;
+    header {
+      padding: 3rem 0 2rem;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: pulseGlow 2s infinite alternate;
+    }
+
+    .subtitle {
+      font-size: 1.3rem;
+      color: #ccc;
+      margin-bottom: 2rem;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    .highlight-box {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 700px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: bounceIn 1s ease-out 0.6s both;
+    }
+
+    .highlight-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(255, 221, 87, 0.5);
+    }
+
+    .requirements {
+      text-align: left;
+      margin: 0 auto 2rem;
+      max-width: 600px;
+      line-height: 1.8;
+      font-size: 1.1rem;
+    }
+
+    .requirements li {
+      margin-bottom: 0.8rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .requirements li:before {
+      content: "▹";
+      color: var(--primary);
+      position: absolute;
+      left: 0;
+      font-weight: bold;
     }
 
     form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-top: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      animation: slideInUp 1s ease-out 0.9s both;
+    }
+
+    .form-group {
+      margin-bottom: 1.8rem;
+      text-align: left;
     }
 
     label {
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: #00ffd5;
-      text-shadow: 0 0 5px #00ffd5;
+      display: block;
+      margin-bottom: 0.6rem;
+      font-weight: 500;
+      color: #fff;
+      font-size: 1.1rem;
+      position: relative;
     }
 
-    input[type=text],
-    input[type=email],
-    textarea,
-    select {
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      font-size: 1em;
-      background: #1e2e38;
+    label:after {
+      content: " *";
+      color: #ff6b6b;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
       color: #fff;
-      outline: none;
-      transition: 0.3s;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s;
     }
 
     input:focus, textarea:focus, select:focus {
-      box-shadow: 0 0 10px #00ffd5;
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(255, 126, 95, 0.3);
     }
 
     textarea {
+      min-height: 120px;
       resize: vertical;
-      min-height: 80px;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 0.8rem 1.2rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      border: 2px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .radio-option:hover {
+      background: rgba(255, 126, 95, 0.1);
+      border-color: rgba(255, 126, 95, 0.3);
+    }
+
+    input[type="radio"]:checked + .radio-label {
+      background: rgba(255, 126, 95, 0.2);
+      border-color: var(--primary);
     }
 
     button {
-      padding: 12px;
-      background: #00ffd5;
+      display: inline-block;
+      padding: 1rem 3rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
       border: none;
-      border-radius: 8px;
-      color: #000;
-      font-weight: bold;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: 0.3s;
+      margin-top: 1rem;
+      transition: all 0.3s;
+      box-shadow: 0 5px 20px rgba(255, 126, 95, 0.4);
+      animation: fadeIn 1s ease-out 1.2s both;
     }
 
     button:hover {
-      background: #00c4a7;
-      box-shadow: 0 0 15px #00ffd5;
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 10px 30px rgba(255, 126, 95, 0.6);
     }
 
-    .info {
-      font-size: 0.9em;
-      margin-top: 15px;
-      padding: 10px;
-      background: rgba(255,255,255,0.05);
-      border-left: 3px solid #00ffd5;
+    button:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .info-box {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-top: 3rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      border-left: 4px solid var(--accent);
+      animation: fadeIn 1.5s ease-out 1.5s both;
+    }
+
+    .info-box h3 {
+      color: var(--accent);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: #aaa;
+      animation: fadeIn 2s ease-in;
+    }
+
+    /* Animacje */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseGlow {
+      0% { text-shadow: 0 0 10px rgba(255, 126, 95, 0.5); }
+      100% { text-shadow: 0 0 30px rgba(255, 126, 95, 0.9), 0 0 40px rgba(255, 180, 123, 0.8); }
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.8); opacity: 0; }
+      50% { transform: scale(1.05); opacity: 1; }
+      70% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsywność */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      .subtitle { font-size: 1.1rem; }
+      .highlight-box, form { padding: 1.5rem; }
+      label { font-size: 1rem; }
+      input, textarea, select { padding: 0.8rem; }
+      button { padding: 0.8rem 2rem; font-size: 1.1rem; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 2rem; }
+      .radio-group { flex-direction: column; gap: 0.5rem; }
+      .radio-option { width: 100%; }
     }
   </style>
 </head>
 <body>
-  <h1>QDCRAFT <br> Rekrutacja do administracji</h1>
+  <div class="container">
+    <header>
+      <h1>QDCRAFT</h1>
+      <p class="subtitle">Dołącz do naszego teamu i pomóż tworzyć najlepszy serwer Minecraft!</p>
+    </header>
 
-  <div class="section">
-    <h2>Wymagania</h2>
-    <ul>
-      <li>1. Mieć przynajmniej 13 lat (są wyjątki)</li>
-      <li>2. Używać poprawnie ortografii</li>
-      <li>3. Posiadać sprawny mikrofon</li>
-      <li>4. Umiejętność wykrycia każdego cheata</li>
-    </ul>
-  </div>
+    <div class="highlight-box">
+      <div class="highlight-title">✨ REKRUTACJA DO ADMINISTRACJI ✨</div>
+      <ul class="requirements">
+        <li><strong>Mieć przynajmniej 13 lat</strong> (Są wyjątki)</li>
+        <li><strong>Używać poprawnej ortografii</strong></li>
+        <li><strong>Posiadać sprawny mikrofon</strong></li>
+        <li><strong>Umiejętność wykrycia każdego cheata</strong></li>
+      </ul>
+    </div>
 
-  <div class="section">
-    <h2>Formularz rekrutacyjny</h2>
-    <!-- Formularz przez Formspree -->
-    <form action="https://formspree.io/f/yourFormID" method="POST">
-      <label>Imię i nazwisko:
-        <input type="text" name="fullname" required>
-      </label>
+    <form action="https://formspree.io/f/twój_kod" method="POST">
+      <!-- Imię i Nazwisko -->
+      <div class="form-group">
+        <label for="name">Imię i Nazwisko</label>
+        <input type="text" id="name" name="Imie_i_Nazwisko" required placeholder="Wpisz swoje imię i nazwisko...">
+      </div>
 
-      <label>Nick z Minecrafta oraz Discorda:
-        <input type="text" name="nicknames" placeholder="Mc: xxx | Dc: yyy" required>
-      </label>
+      <!-- Nick MC i Discord -->
+      <div class="form-group">
+        <label for="nicks">Nick z Minecraft’a oraz Discord’a</label>
+        <input type="text" id="nicks" name="Nick_MC_Discord" required placeholder="Przykład: Mc: kacperrfy | Dc: DeveloperXD">
+      </div>
 
-      <label>Ile masz lat?</label>
-      <select name="wiek" required>
-        <option value="mniej_13">mniej niż 13 lat</option>
-        <option value="13">13 lat</option>
-        <option value="14_16">14-16 lat</option>
-        <option value="17_plus">Powyżej 17 lat</option>
-      </select>
+      <!-- Wiek -->
+      <div class="form-group">
+        <label>Ile masz lat?</label>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="Wiek" value="mniej niz 13" required> 
+            <span class="radio-label">Mniej niż 13 lat</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="Wiek" value="13"> 
+            <span class="radio-label">13 lat</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="Wiek" value="14-16"> 
+            <span class="radio-label">14-16 lat</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="Wiek" value="powyzej 17"> 
+            <span class="radio-label">Powyżej 17 lat</span>
+          </label>
+        </div>
+      </div>
 
-      <label>Opisz siebie (przynajmniej 3 zdania):
-        <textarea name="opis" required></textarea>
-      </label>
+      <!-- Opis siebie -->
+      <div class="form-group">
+        <label for="opis">Opisz siebie (Przynajmniej 3 zdania)</label>
+        <textarea id="opis" name="Opis_siebie" required placeholder="Kim jesteś? Co lubisz robić? Jakie masz doświadczenie?"></textarea>
+      </div>
 
-      <label>Czy posiadasz Minecraft Premium?</label>
-      <select name="minecraft_premium" required>
-        <option value="tak">Tak</option>
-        <option value="nie">Nie</option>
-      </select>
+      <!-- Minecraft Premium -->
+      <div class="form-group">
+        <label>Czy posiadasz Minecraft Premium?</label>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="Premium" value="Tak" required> 
+            <span class="radio-label">Tak</span>
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="Premium" value="Nie"> 
+            <span class="radio-label">Nie</span>
+          </label>
+        </div>
+      </div>
 
-      <label>Przekonaj nas, dlaczego akurat Ciebie mamy przyjąć do naszej administracji:
-        <textarea name="dlaczego_ty" required></textarea>
-      </label>
+      <!-- Dlaczego akurat Ty? -->
+      <div class="form-group">
+        <label for="dlaczego">Przekonaj nas, dlaczego akurat Ciebie mamy przyjąć?</label>
+        <textarea id="dlaczego" name="Dlaczego_Ty" required placeholder="Napisz coś, co zrobi na nas wrażenie..."></textarea>
+      </div>
 
-      <label>Email kontaktowy:
-        <input type="email" name="email" required>
-      </label>
-
-      <button type="submit">Wyślij zgłoszenie</button>
+      <button type="submit">
+        <i class="fas fa-paper-plane"></i> Wyślij Podanie
+      </button>
     </form>
 
-    <div class="info">
-      <strong>Informacje na temat rekrutacji</strong><br>
-      Osoby prowadzące rekrutację: <b>Darkmoon™</b><br>
+    <div class="info-box">
+      <h3><i class="fas fa-info-circle"></i> Informacje o rekrutacji</h3>
+      <p><strong>Osoby prowadzące rekrutację:</strong><br>• Darkmoon™</p>
+      <p><i class="fas fa-clock"></i> W ciągu 3 dni administracja sprawdzi Twój formularz i da znać na Discordzie, czy się dostałeś/aś.</p>
+    </div>
+
+    <footer>
+      © 2025 QDCRAFT | Strona stworzona z ❤️ dla społeczności Minecraft
+    </footer>
+  </div>
+
+  <script>
+    // Efekt potwierdzenia po wysłaniu
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const form = e.target;
+      const formData = new FormData(form);
+      
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          alert('✅ Twoje podanie zostało wysłane! Sprawdzimy je w ciągu 3 dni.');
+          form.reset();
+        } else {
+          response.json().then(data => {
+            alert('❌ Błąd: ' + data.error);
+          });
+        }
+      }).catch(error => {
+        alert('❌ Coś poszło nie tak. Spróbuj później.');
+      });
+    });
+
+    // Animacja przy scrollu (opcjonalnie)
+    const observerOptions = {
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.highlight-box, form, .info-box').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
       W ciągu 3 dni administracja sprawdzi Twój formularz oraz da znać na Discordzie, czy się dostałeś/aś.
     </div>
   </div>
