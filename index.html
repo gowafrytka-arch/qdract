@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QDCRAFT — Rekrutacja Administracji</title>
+  <title>QDCRAFT — Rekrutacja Administracji QD</title>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -404,7 +404,7 @@
   <script>
     // Inicjalizacja EmailJS — WPISZ SWOJE KLUCZE TUTAJ! ⬇️
     (function() {
-      emailjs.init("TWÓJ_PUBLIC_KEY"); // ← ZAMIEŃ TO!
+      emailjs.init("BeWfNMKYOHVV6uXbo"); // ← ZAMIEŃ TO!
     })();
 
     document.getElementById('rekrutacjaForm').addEventListener('submit', function(e) {
@@ -425,7 +425,7 @@
       }
 
       // Wysyłanie przez EmailJS
-      emailjs.send("TWÓJ_SERVICE_ID", "TWÓJ_TEMPLATE_ID", {
+      emailjs.send("service_123", "template_bgixb79", {
         imie_nazwisko: document.getElementById('imie_nazwisko').value,
         nick_mc_dc: document.getElementById('nick_mc_dc').value,
         wiek: document.querySelector('input[name="wiek"]:checked')?.value || '',
