@@ -3,30 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>QDCRAFT — Rekrutacja do Administracji</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>QDCRAFT — Rekrutacja Administracji</title>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-    :root {
-      --primary: #ff7e5f;
-      --secondary: #feb47b;
-      --accent: #ffdd57;
-      --dark: #1a1a2e;
-      --mid: #16213e;
-      --light: #e0e0e0;
-    }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    :root {
+      --primary: #6c5ce7;
+      --secondary: #a29bfe;
+      --accent: #fd79a8;
+      --dark: #2d3436;
+      --light: #f5f6fa;
+      --success: #00b894;
+    }
+
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, var(--dark), var(--mid), #0f3460);
-      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: var(--light);
       min-height: 100vh;
       overflow-x: hidden;
       position: relative;
@@ -35,143 +34,152 @@
     body::before {
       content: "";
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        radial-gradient(circle at 20% 30%, rgba(255, 126, 95, 0.1), transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(254, 180, 123, 0.1), transparent 40%);
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(108, 92, 231, 0.1) 0%, transparent 70%),
+                  radial-gradient(circle, rgba(253, 121, 168, 0.1) 0%, transparent 70%);
+      animation: rotate 25s linear infinite;
       z-index: -1;
-      pointer-events: none;
-      animation: float 20s ease-in-out infinite;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0); }
-      25% { transform: translate(15px, -15px); }
-      50% { transform: translate(0, 15px); }
-      75% { transform: translate(-15px, 0); }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     .container {
       max-width: 900px;
       margin: 0 auto;
       padding: 2rem;
-      text-align: center;
     }
 
     header {
-      padding: 3rem 0 2rem;
-      animation: fadeInUp 1s ease-out;
+      text-align: center;
+      padding: 4rem 0 2rem;
     }
 
     h1 {
-      font-size: 3.5rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4rem;
       font-weight: 700;
-      margin-bottom: 1rem;
-      background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+      letter-spacing: 2px;
+      background: linear-gradient(to right, var(--secondary), var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: pulseGlow 2s infinite alternate;
+      text-shadow: 0 0 20px rgba(162, 155, 254, 0.3);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px rgba(162, 155, 254, 0.5); }
+      to { text-shadow: 0 0 30px rgba(253, 121, 168, 0.8), 0 0 40px rgba(108, 92, 231, 0.6); }
     }
 
     .subtitle {
       font-size: 1.3rem;
-      color: #ccc;
-      margin-bottom: 2rem;
-      animation: fadeInUp 1s ease-out 0.3s both;
+      color: #ddd;
+      margin-top: 1rem;
+      font-weight: 500;
     }
 
-    .highlight-box {
+    .card {
       background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 2rem;
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 2.5rem;
       margin: 2rem auto;
-      max-width: 700px;
       border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      animation: bounceIn 1s ease-out 0.6s both;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      transition: transform 0.4s, box-shadow 0.4s;
     }
 
-    .highlight-title {
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
       font-size: 1.8rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
       color: var(--accent);
-      text-shadow: 0 0 10px rgba(255, 221, 87, 0.5);
+      margin-bottom: 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .section-title:after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      margin: 10px auto;
+      border-radius: 2px;
     }
 
     .requirements {
       text-align: left;
-      margin: 0 auto 2rem;
-      max-width: 600px;
-      line-height: 1.8;
+      line-height: 2;
       font-size: 1.1rem;
+      margin: 0 auto 2rem;
+      max-width: 650px;
     }
 
     .requirements li {
-      margin-bottom: 0.8rem;
-      padding-left: 1.5rem;
+      margin-bottom: 0.7rem;
+      padding-left: 2rem;
       position: relative;
     }
 
     .requirements li:before {
-      content: "▹";
-      color: var(--primary);
+      content: "⚡";
       position: absolute;
       left: 0;
+      color: var(--accent);
       font-weight: bold;
     }
 
     form {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 2.5rem;
-      margin-top: 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-      animation: slideInUp 1s ease-out 0.9s both;
+      text-align: left;
     }
 
     .form-group {
       margin-bottom: 1.8rem;
-      text-align: left;
     }
 
     label {
       display: block;
-      margin-bottom: 0.6rem;
-      font-weight: 500;
-      color: #fff;
+      margin-bottom: 0.7rem;
+      font-weight: 600;
       font-size: 1.1rem;
+      color: #fff;
       position: relative;
     }
 
     label:after {
       content: " *";
-      color: #ff6b6b;
+      color: var(--accent);
     }
 
     input, textarea, select {
       width: 100%;
       padding: 1rem;
-      border-radius: 12px;
+      border-radius: 14px;
       border: 2px solid rgba(255, 255, 255, 0.1);
       background: rgba(255, 255, 255, 0.05);
       color: #fff;
       font-size: 1rem;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       transition: all 0.3s;
     }
 
     input:focus, textarea:focus, select:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 15px rgba(255, 126, 95, 0.3);
+      background: rgba(108, 92, 231, 0.1);
+      box-shadow: 0 0 15px rgba(108, 92, 231, 0.3);
     }
 
     textarea {
@@ -180,8 +188,8 @@
     }
 
     .radio-group {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
       margin-top: 0.5rem;
     }
@@ -190,127 +198,115 @@
       display: flex;
       align-items: center;
       cursor: pointer;
-      padding: 0.8rem 1.2rem;
+      padding: 1rem;
       background: rgba(255, 255, 255, 0.05);
-      border-radius: 10px;
+      border-radius: 12px;
       border: 2px solid transparent;
       transition: all 0.3s;
     }
 
     .radio-option:hover {
-      background: rgba(255, 126, 95, 0.1);
-      border-color: rgba(255, 126, 95, 0.3);
+      background: rgba(253, 121, 168, 0.1);
+      border-color: rgba(253, 121, 168, 0.4);
     }
 
     input[type="radio"]:checked + .radio-label {
-      background: rgba(255, 126, 95, 0.2);
-      border-color: var(--primary);
+      background: rgba(253, 121, 168, 0.2);
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     button {
-      display: inline-block;
-      padding: 1rem 3rem;
+      display: block;
+      width: 100%;
+      padding: 1.2rem;
       background: linear-gradient(45deg, var(--primary), var(--secondary));
       color: white;
       border: none;
-      border-radius: 50px;
+      border-radius: 16px;
       font-size: 1.2rem;
-      font-weight: 600;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
       cursor: pointer;
-      margin-top: 1rem;
+      margin-top: 1.5rem;
       transition: all 0.3s;
-      box-shadow: 0 5px 20px rgba(255, 126, 95, 0.4);
-      animation: fadeIn 1s ease-out 1.2s both;
+      box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
     }
 
     button:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 10px 30px rgba(255, 126, 95, 0.6);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(108, 92, 231, 0.6);
     }
 
     button:active {
-      transform: translateY(0) scale(0.98);
+      transform: translateY(0);
     }
 
-    .info-box {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      padding: 1.5rem;
-      margin-top: 3rem;
-      font-size: 0.95rem;
-      line-height: 1.6;
-      border-left: 4px solid var(--accent);
-      animation: fadeIn 1.5s ease-out 1.5s both;
+    button i {
+      margin-right: 8px;
     }
 
-    .info-box h3 {
-      color: var(--accent);
-      margin-bottom: 1rem;
-      font-size: 1.3rem;
+    .info-card {
+      background: rgba(0, 184, 148, 0.1);
+      border-left: 5px solid var(--success);
+    }
+
+    .info-card .section-title:after {
+      background: var(--success);
     }
 
     footer {
+      text-align: center;
       margin-top: 3rem;
       padding: 2rem 0;
-      font-size: 0.9rem;
       color: #aaa;
-      animation: fadeIn 2s ease-in;
+      font-size: 0.95rem;
     }
 
-    /* Animacje */
+    /* Animacje ładowania */
+    .animate-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s forwards;
+    }
+
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .delay-4 { animation-delay: 0.8s; }
+    .delay-5 { animation-delay: 1.0s; }
+
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulseGlow {
-      0% { text-shadow: 0 0 10px rgba(255, 126, 95, 0.5); }
-      100% { text-shadow: 0 0 30px rgba(255, 126, 95, 0.9), 0 0 40px rgba(255, 180, 123, 0.8); }
-    }
-
-    @keyframes bounceIn {
-      0% { transform: scale(0.8); opacity: 0; }
-      50% { transform: scale(1.05); opacity: 1; }
-      70% { transform: scale(0.95); }
-      100% { transform: scale(1); }
-    }
-
-    @keyframes slideInUp {
-      from { opacity: 0; transform: translateY(50px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* Responsywność */
     @media (max-width: 768px) {
-      h1 { font-size: 2.5rem; }
+      h1 { font-size: 2.8rem; }
       .subtitle { font-size: 1.1rem; }
-      .highlight-box, form { padding: 1.5rem; }
+      .card { padding: 1.8rem; }
       label { font-size: 1rem; }
-      input, textarea, select { padding: 0.8rem; }
-      button { padding: 0.8rem 2rem; font-size: 1.1rem; }
+      .radio-group { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 480px) {
-      h1 { font-size: 2rem; }
-      .radio-group { flex-direction: column; gap: 0.5rem; }
-      .radio-option { width: 100%; }
+      h1 { font-size: 2.2rem; }
+      .container { padding: 1rem; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <header>
+    <header class="animate-in">
       <h1>QDCRAFT</h1>
-      <p class="subtitle">Dołącz do naszego teamu i pomóż tworzyć najlepszy serwer Minecraft!</p>
+      <p class="subtitle">Dołącz do elitarnego teamu administracji serwera Minecraft!</p>
     </header>
 
-    <div class="highlight-box">
-      <div class="highlight-title">✨ REKRUTACJA DO ADMINISTRACJI ✨</div>
+    <div class="card animate-in delay-1">
+      <h2 class="section-title">✨ WYMAGANIA ✨</h2>
       <ul class="requirements">
         <li><strong>Mieć przynajmniej 13 lat</strong> (Są wyjątki)</li>
         <li><strong>Używać poprawnej ortografii</strong></li>
@@ -319,135 +315,136 @@
       </ul>
     </div>
 
-    <form action="https://formspree.io/f/twój_kod" method="POST">
-      <!-- Imię i Nazwisko -->
-      <div class="form-group">
-        <label for="name">Imię i Nazwisko</label>
-        <input type="text" id="name" name="Imie_i_Nazwisko" required placeholder="Wpisz swoje imię i nazwisko...">
-      </div>
-
-      <!-- Nick MC i Discord -->
-      <div class="form-group">
-        <label for="nicks">Nick z Minecraft’a oraz Discord’a</label>
-        <input type="text" id="nicks" name="Nick_MC_Discord" required placeholder="Przykład: Mc: kacperrfy | Dc: DeveloperXD">
-      </div>
-
-      <!-- Wiek -->
-      <div class="form-group">
-        <label>Ile masz lat?</label>
-        <div class="radio-group">
-          <label class="radio-option">
-            <input type="radio" name="Wiek" value="mniej niz 13" required> 
-            <span class="radio-label">Mniej niż 13 lat</span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="Wiek" value="13"> 
-            <span class="radio-label">13 lat</span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="Wiek" value="14-16"> 
-            <span class="radio-label">14-16 lat</span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="Wiek" value="powyzej 17"> 
-            <span class="radio-label">Powyżej 17 lat</span>
-          </label>
+    <div class="card animate-in delay-2">
+      <h2 class="section-title">📝 FORMULARZ REKRUTACYJNY</h2>
+      <form id="rekrutacjaForm">
+        <!-- Imię i Nazwisko -->
+        <div class="form-group">
+          <label for="imie_nazwisko">Imię i Nazwisko</label>
+          <input type="text" id="imie_nazwisko" name="imie_nazwisko" required placeholder="Jan Kowalski">
         </div>
-      </div>
 
-      <!-- Opis siebie -->
-      <div class="form-group">
-        <label for="opis">Opisz siebie (Przynajmniej 3 zdania)</label>
-        <textarea id="opis" name="Opis_siebie" required placeholder="Kim jesteś? Co lubisz robić? Jakie masz doświadczenie?"></textarea>
-      </div>
-
-      <!-- Minecraft Premium -->
-      <div class="form-group">
-        <label>Czy posiadasz Minecraft Premium?</label>
-        <div class="radio-group">
-          <label class="radio-option">
-            <input type="radio" name="Premium" value="Tak" required> 
-            <span class="radio-label">Tak</span>
-          </label>
-          <label class="radio-option">
-            <input type="radio" name="Premium" value="Nie"> 
-            <span class="radio-label">Nie</span>
-          </label>
+        <!-- Nick MC i Discord -->
+        <div class="form-group">
+          <label for="nick_mc_dc">Nick z Minecraft’a oraz Discord’a</label>
+          <input type="text" id="nick_mc_dc" name="nick_mc_dc" required placeholder="Mc: Herobrine | Dc: AdminKing#1234">
         </div>
-      </div>
 
-      <!-- Dlaczego akurat Ty? -->
-      <div class="form-group">
-        <label for="dlaczego">Przekonaj nas, dlaczego akurat Ciebie mamy przyjąć?</label>
-        <textarea id="dlaczego" name="Dlaczego_Ty" required placeholder="Napisz coś, co zrobi na nas wrażenie..."></textarea>
-      </div>
+        <!-- Wiek -->
+        <div class="form-group">
+          <label>Ile masz lat?</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="wiek" value="mniej niz 13" required> 
+              <span class="radio-label">Mniej niż 13 lat</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="wiek" value="13"> 
+              <span class="radio-label">13 lat</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="wiek" value="14-16"> 
+              <span class="radio-label">14-16 lat</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="wiek" value="powyzej 17"> 
+              <span class="radio-label">Powyżej 17 lat</span>
+            </label>
+          </div>
+        </div>
 
-      <button type="submit">
-        <i class="fas fa-paper-plane"></i> Wyślij Podanie
-      </button>
-    </form>
+        <!-- Opis siebie -->
+        <div class="form-group">
+          <label for="opis_siebie">Opisz siebie (min. 3 zdania)</label>
+          <textarea id="opis_siebie" name="opis_siebie" required placeholder="Kim jesteś? Co Cię wyróżnia? Jakie masz doświadczenie?"></textarea>
+        </div>
 
-    <div class="info-box">
-      <h3><i class="fas fa-info-circle"></i> Informacje o rekrutacji</h3>
-      <p><strong>Osoby prowadzące rekrutację:</strong><br>• Darkmoon™</p>
-      <p><i class="fas fa-clock"></i> W ciągu 3 dni administracja sprawdzi Twój formularz i da znać na Discordzie, czy się dostałeś/aś.</p>
+        <!-- Minecraft Premium -->
+        <div class="form-group">
+          <label>Czy posiadasz Minecraft Premium?</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="premium" value="Tak" required> 
+              <span class="radio-label">Tak</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="premium" value="Nie"> 
+              <span class="radio-label">Nie</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Dlaczego akurat Ty -->
+        <div class="form-group">
+          <label for="dlaczego_ty">Dlaczego akurat Ciebie mamy przyjąć?</label>
+          <textarea id="dlaczego_ty" name="dlaczego_ty" required placeholder="Przekonaj nas..."></textarea>
+        </div>
+
+        <button type="submit">
+          <i class="fas fa-paper-plane"></i> WYŚLIJ PODANIE
+        </button>
+      </form>
     </div>
 
-    <footer>
-      © 2025 QDCRAFT | Strona stworzona z ❤️ dla społeczności Minecraft
+    <div class="card info-card animate-in delay-3">
+      <h2 class="section-title">📌 INFORMACJE</h2>
+      <p style="text-align: left; line-height: 1.8; font-size: 1.05rem;">
+        <strong>Osoby prowadzące rekrutację:</strong><br>
+        • Darkmoon™<br><br>
+        <i class="fas fa-clock"></i> <strong>W ciągu 3 dni</strong> otrzymasz odpowiedź na Discordzie.<br>
+        <i class="fas fa-envelope"></i> Twoje podanie trafi bezpośrednio do zespołu QDCRAFT.
+      </p>
+    </div>
+
+    <footer class="animate-in delay-4">
+      © 2025 QDCRAFT | Stworzone z pasją dla społeczności Minecraft ❤️
     </footer>
   </div>
 
   <script>
-    // Efekt potwierdzenia po wysłaniu
-    document.querySelector('form').addEventListener('submit', function(e) {
+    // Inicjalizacja EmailJS — WPISZ SWOJE KLUCZE TUTAJ! ⬇️
+    (function() {
+      emailjs.init("WPISZ_TUTAJ_SWOJ_PUBLIC_KEY"); // ← ZAMIEŃ TO!
+    })();
+
+    document.getElementById('rekrutacjaForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      
+
       const form = e.target;
-      const formData = new FormData(form);
-      
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      }).then(response => {
-        if (response.ok) {
-          alert('✅ Twoje podanie zostało wysłane! Sprawdzimy je w ciągu 3 dni.');
-          form.reset();
-        } else {
-          response.json().then(data => {
-            alert('❌ Błąd: ' + data.error);
-          });
-        }
-      }).catch(error => {
-        alert('❌ Coś poszło nie tak. Spróbuj później.');
+
+      // Walidacja (upewnij się, że wszystkie wymagane pola są wypełnione)
+      let isValid = true;
+      const requiredFields = form.querySelectorAll('[required]');
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) isValid = false;
+      });
+
+      if (!isValid) {
+        alert('⚠️ Wypełnij wszystkie wymagane pola!');
+        return;
+      }
+
+      // Wysyłanie przez EmailJS
+      emailjs.send("WPISZ_TUTAJ_SERVICE_ID", "WPISZ_TUTAJ_TEMPLATE_ID", {
+        imie_nazwisko: document.getElementById('imie_nazwisko').value,
+        nick_mc_dc: document.getElementById('nick_mc_dc').value,
+        wiek: document.querySelector('input[name="wiek"]:checked')?.value || '',
+        opis_siebie: document.getElementById('opis_siebie').value,
+        premium: document.querySelector('input[name="premium"]:checked')?.value || '',
+        dlaczego_ty: document.getElementById('dlaczego_ty').value
+      })
+      .then(function() {
+        alert('✅ Sukces! Twoje podanie zostało wysłane.\nOdpowiemy w ciągu 3 dni na Discordzie.');
+        form.reset();
+      }, function(error) {
+        alert('❌ Błąd: ' + JSON.stringify(error));
       });
     });
 
-    // Animacja przy scrollu (opcjonalnie)
-    const observerOptions = {
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animationPlayState = 'running';
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.highlight-box, form, .info-box').forEach(el => {
-      el.style.animationPlayState = 'paused';
-      observer.observe(el);
+    // Animacje pojawiania się
+    document.querySelectorAll('.animate-in').forEach((el, index) => {
+      el.style.animationDelay = `${index * 0.2}s`;
     });
   </script>
-</body>
-</html>
-      W ciągu 3 dni administracja sprawdzi Twój formularz oraz da znać na Discordzie, czy się dostałeś/aś.
-    </div>
-  </div>
 </body>
 </html>
