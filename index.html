@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QDCRAFT — Rekrutacja Administracji</title>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
@@ -335,19 +335,19 @@
           <label>Ile masz lat?</label>
           <div class="radio-group">
             <label class="radio-option">
-              <input type="radio" name="wiek" value="mniej niz 13" required> 
+              <input type="radio" name="wiek" value="mniej niz 13" required>
               <span class="radio-label">Mniej niż 13 lat</span>
             </label>
             <label class="radio-option">
-              <input type="radio" name="wiek" value="13"> 
+              <input type="radio" name="wiek" value="13">
               <span class="radio-label">13 lat</span>
             </label>
             <label class="radio-option">
-              <input type="radio" name="wiek" value="14-16"> 
+              <input type="radio" name="wiek" value="14-16">
               <span class="radio-label">14-16 lat</span>
             </label>
             <label class="radio-option">
-              <input type="radio" name="wiek" value="powyzej 17"> 
+              <input type="radio" name="wiek" value="powyzej 17">
               <span class="radio-label">Powyżej 17 lat</span>
             </label>
           </div>
@@ -364,11 +364,11 @@
           <label>Czy posiadasz Minecraft Premium?</label>
           <div class="radio-group">
             <label class="radio-option">
-              <input type="radio" name="premium" value="Tak" required> 
+              <input type="radio" name="premium" value="Tak" required>
               <span class="radio-label">Tak</span>
             </label>
             <label class="radio-option">
-              <input type="radio" name="premium" value="Nie"> 
+              <input type="radio" name="premium" value="Nie">
               <span class="radio-label">Nie</span>
             </label>
           </div>
@@ -404,7 +404,7 @@
   <script>
     // Inicjalizacja EmailJS — WPISZ SWOJE KLUCZE TUTAJ! ⬇️
     (function() {
-      emailjs.init("WPISZ_TUTAJ_SWOJ_PUBLIC_KEY"); // ← ZAMIEŃ TO!
+      emailjs.init("TWÓJ_PUBLIC_KEY"); // ← ZAMIEŃ TO!
     })();
 
     document.getElementById('rekrutacjaForm').addEventListener('submit', function(e) {
@@ -425,7 +425,7 @@
       }
 
       // Wysyłanie przez EmailJS
-      emailjs.send("WPISZ_TUTAJ_SERVICE_ID", "WPISZ_TUTAJ_TEMPLATE_ID", {
+      emailjs.send("TWÓJ_SERVICE_ID", "TWÓJ_TEMPLATE_ID", {
         imie_nazwisko: document.getElementById('imie_nazwisko').value,
         nick_mc_dc: document.getElementById('nick_mc_dc').value,
         wiek: document.querySelector('input[name="wiek"]:checked')?.value || '',
